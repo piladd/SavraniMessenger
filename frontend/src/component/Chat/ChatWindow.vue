@@ -3,40 +3,56 @@
     <div v-if="!currentRecipientId" class="empty">
       Выберите пользователя, чтобы начать переписку
     </div>
-
     <div v-else class="messages">
       <MessageBubble
-        v-for="msg in messages"
+        v-for="msg in messageStore.messages"
         :key="msg.id"
         :message="msg"
-        :isMine="msg.senderId === currentUser?.id"
+        :isMine="msg.senderId === userStore.currentUser?.id"
       />
     </div>
   </div>
 </template>
 
+
 <script setup lang="ts">
-import { ref, computed, watch, nextTick } from 'vue'
+import { onMounted, watch, nextTick, ref, computed } from 'vue'
 import { useMessageStore } from '@/store/message'
 import { useUserStore } from '@/store/user'
 import MessageBubble from './MessageBubble.vue'
 
 const chatWindow = ref<HTMLElement | null>(null)
-
 const messageStore = useMessageStore()
-const userStore = useUserStore()
+const userStore    = useUserStore()
 
-const currentUser = computed(() => userStore.currentUser)
 const currentRecipientId = computed(() => messageStore.currentRecipientId)
-const messages = computed(() => messageStore.messages)
 
-watch(messages, async () => {
-  await nextTick()
-  if (chatWindow.value) {
-    chatWindow.value.scrollTop = chatWindow.value.scrollHeight
+// при монтировании, если уже есть выбранный чат, загрузить его
+onMounted(async () => {
+  if (currentRecipientId.value) {
+    await messageStore.startDialog(currentRecipientId.value)
   }
 })
+
+// при каждой смене получателя — заново инициализировать диалог
+watch(currentRecipientId, async (newId, oldId) => {
+  if (newId && newId !== oldId) {
+    await messageStore.startDialog(newId)
+  }
+})
+
+// скролл вниз при каждом новом сообщении
+watch(
+  () => messageStore.messages.length,
+  async () => {
+    await nextTick()
+    if (chatWindow.value) {
+      chatWindow.value.scrollTop = chatWindow.value.scrollHeight
+    }
+  }
+)
 </script>
+
 
 
 <style scoped>

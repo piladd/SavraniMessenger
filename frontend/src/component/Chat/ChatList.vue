@@ -61,9 +61,10 @@ function onSearch() {
   userStore.fetchUsers(searchQuery.value)
 }
 
-function selectUser(id: string) {
+async function selectUser(id: string) {
   // loadMessages установит currentRecipientId и загрузит историю
-  messageStore.loadMessages(id)
+  // console.warn("test")
+  await messageStore.startDialog(id)
 }
 
 onMounted(() => {

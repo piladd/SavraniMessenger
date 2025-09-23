@@ -10,6 +10,7 @@ export interface MessageDto {
     iv: string | null
     createdAt: string
     decryptedContent?: string | null
+    plainText?: string
 }
 
 

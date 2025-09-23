@@ -79,15 +79,15 @@ export const useAuthStore = defineStore("auth", {
         await this.loadCurrentUser()
 
         // Запускаем WebSocket
-        if (this.currentUser?.id) {
-          await wsService.connect(this.currentUser.id, this.token)
-          const msgStore = useMessageStore()
-          wsService.onMessage((msg) => {
-            if (msg.senderId === msgStore.currentRecipientId) {
-              msgStore.messages.push(msg)
-            }
-          })
-        }
+        // if (this.currentUser?.id) {
+        //   await wsService.connect(this.currentUser.id, this.token)
+        //   const msgStore = useMessageStore()
+        //   wsService.onMessage((msg) => {
+        //     if (msg.senderId === msgStore.currentRecipientId) {
+        //       msgStore.messages.push(msg)
+        //     }
+        //   })
+        // }
 
         return true
       } catch (e) {
@@ -143,15 +143,15 @@ export const useAuthStore = defineStore("auth", {
         await this.loadCurrentUser()
 
         // Запускаем WebSocket
-        if (this.currentUser?.id) {
-          await wsService.connect(this.currentUser.id, this.token)
-          const msgStore = useMessageStore()
-          wsService.onMessage((msg) => {
-            if (msg.senderId === msgStore.currentRecipientId) {
-              msgStore.messages.push(msg)
-            }
-          })
-        }
+        // if (this.currentUser?.id) {
+        //   await wsService.connect(this.currentUser.id, this.token)
+        //   const msgStore = useMessageStore()
+        //   wsService.onMessage((msg) => {
+        //     if (msg.senderId === msgStore.currentRecipientId) {
+        //       msgStore.messages.push(msg)
+        //     }
+        //   })
+        // }
 
         return true
       } catch (e) {

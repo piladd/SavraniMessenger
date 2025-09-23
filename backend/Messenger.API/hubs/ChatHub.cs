@@ -81,7 +81,7 @@ public class ChatHub : Hub
             EncryptedContent = encryptedContent,
             EncryptedAesKey  = encryptedAesKey,
             Iv               = iv,
-            Type             = (Messenger.Domain.Enums.MessageType)type
+            Type             = (MessageType)type
         });
 
         // Отправляем DTO обратно отправителю

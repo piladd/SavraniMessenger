@@ -17,9 +17,13 @@ import defaultAvatar from '@/assets/default-avatar.png'
 import {formatTime} from '@/utils/date'
 
 defineProps<{
-  message: MessageDto
+  message: MessageDto & {
+    decryptedContent?: string
+    createdAt?: string
+  }
   isMine: boolean
 }>()
+
 </script>
 
 <style scoped>
