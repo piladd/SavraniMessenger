@@ -23,7 +23,7 @@ namespace Messenger.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Messenger.Domain.Entities.Attachment", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.Attachment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace Messenger.Persistence.Migrations
                     b.ToTable("Attachments");
                 });
 
-            modelBuilder.Entity("Messenger.Domain.Entities.Chat", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.Chat", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace Messenger.Persistence.Migrations
                     b.ToTable("Chats");
                 });
 
-            modelBuilder.Entity("Messenger.Domain.Entities.Message", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.Message", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,7 +129,7 @@ namespace Messenger.Persistence.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("Messenger.Domain.Entities.PublicKey", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.PublicKey", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,7 +159,7 @@ namespace Messenger.Persistence.Migrations
                     b.ToTable("PublicKeys");
                 });
 
-            modelBuilder.Entity("Messenger.Domain.Entities.User", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,15 +192,15 @@ namespace Messenger.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Messenger.Domain.Entities.Message", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.Message", b =>
                 {
-                    b.HasOne("Messenger.Domain.Entities.Chat", "Chat")
+                    b.HasOne("Messenger.Auth.Domain.Entities.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Messenger.Domain.Entities.User", "Sender")
+                    b.HasOne("Messenger.Auth.Domain.Entities.User", "Sender")
                         .WithMany("SentMessages")
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -211,12 +211,12 @@ namespace Messenger.Persistence.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("Messenger.Domain.Entities.Chat", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.Chat", b =>
                 {
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("Messenger.Domain.Entities.User", b =>
+            modelBuilder.Entity("Messenger.Auth.Domain.Entities.User", b =>
                 {
                     b.Navigation("SentMessages");
                 });
